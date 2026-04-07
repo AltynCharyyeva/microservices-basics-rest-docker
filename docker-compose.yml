@@ -1,0 +1,92 @@
+services:
+  frontend:
+    build: ./my_app
+    container_name: frontend
+    environment:
+      REACT_APP_USERS_API_URL: http://person_service:8080/
+      REACT_APP_DEVICES_API_URL: http://device_service:8081/
+      USERS_SERVER: person_service
+      DEVICES_SERVER: device_service
+    ports:
+      - "3000:3000"
+    depends_on:
+      - person_service
+      - device_service
+    networks:
+      custom_network:
+        ipv4_address: 172.16.0.10
+
+  person_service:
+    build: ./mcs_person
+    container_name: person_service
+    environment:
+      DB_IP: person_db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: Texturing77))
+      DB_DBNAME: person_db
+      DEVICE_API_URL: http://device_service:8080/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - person_db
+    networks:
+      custom_network:
+        ipv4_address: 172.16.0.11
+
+  device_service:
+    build: ./mcs_device
+    container_name: device_service
+    environment:
+      DB_IP: device_db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: Texturing77))
+      DB_DBNAME: device_db
+      USER_API_URL: http://person_service:8081/
+    ports:
+      - "8081:8081" # Ensure this is intentional, as service listens on 8080 internally.
+    depends_on:
+      - device_db
+    networks:
+      custom_network:
+        ipv4_address: 172.16.0.12
+
+  person_db:
+    container_name: person_db
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=person_db
+      - MYSQL_ROOT_PASSWORD=Texturing77))
+    ports:
+      - "3307:3306"
+    volumes:
+      - my_db_person:/var/lib/mysql
+    networks:
+      custom_network:
+        ipv4_address: 172.16.0.13
+
+  device_db:
+    container_name: device_db
+    image: mysql
+    environment:
+      - MYSQL_DATABASE=device_db
+      - MYSQL_ROOT_PASSWORD=Texturing77))
+    ports:
+      - "3308:3306"
+    volumes:
+      - my_db_device:/var/lib/mysql
+    networks:
+      custom_network:
+        ipv4_address: 172.16.0.14
+
+volumes:
+  my_db_person:
+  my_db_device:
+
+networks:
+  custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24
