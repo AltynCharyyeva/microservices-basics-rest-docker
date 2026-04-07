@@ -1,4 +1,4 @@
-# Energy Management System
+# Energy Management System: Part 1
 
 A Containerized Microservices Architecture for measuring and monitoring the energy consumption of different devices of users.
 
