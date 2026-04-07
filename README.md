@@ -13,6 +13,8 @@ Key Features:
 <img width="842" height="650" alt="deployment" src="https://github.com/user-attachments/assets/279eeb21-a588-471b-90cf-9a745f34387f" />
 
 The system consists of:
+- my_app (frontend):
+  - a basic user interface implemented in react
 
 - Person Microservice:
   - Manages person-related data
