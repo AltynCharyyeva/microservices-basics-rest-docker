@@ -6,18 +6,19 @@ This project demonstrates a basic microservices architecture built using Spring 
 
 Key Features:
 
-Service decomposition
-Inter-service communication using HTTP
-Data synchronization between microservices
-Containerized deployment with Docker
+- Service decomposition
+- Inter-service communication using HTTP
+- Data synchronization between microservices
+- Containerized deployment with Docker
+<img width="842" height="650" alt="deployment" src="https://github.com/user-attachments/assets/279eeb21-a588-471b-90cf-9a745f34387f" />
 
 The system consists of:
 
-- Person Microservice
-  Manages person-related data
-  Exposes REST endpoints for CRUD operations
+- Person Microservice:
+  - Manages person-related data
+  - Exposes REST endpoints for CRUD operations
 
-- Device Microservice
-  Manages devices
-  Associates devices with persons
-  Fetches person data via REST calls
+- Device Microservice:
+  - Manages devices
+  - Associates devices with persons
+  - Fetches person data via REST calls
